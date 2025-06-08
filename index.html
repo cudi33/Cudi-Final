@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .language-switch button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-switch button:hover,
+        .language-switch button.active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #f1f2f6;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .result {
+            background: #e8f6f3;
+            border: 1px solid #16a085;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            word-break: break-all;
+        }
+
+        .error {
+            background: #fadbd8;
+            border: 1px solid #e74c3c;
+            color: #c0392b;
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        /* Main Menu Styles */
+        .main-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 40px;
+        }
+
+        .menu-title {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .menu-subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .menu-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+
+        .menu-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-card:hover:before {
+            left: 100%;
+        }
+
+        .menu-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover .menu-icon {
+            transform: scale(1.1);
+            color: #2980b9;
+        }
+
+        .menu-card h3 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .menu-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background: #3498db;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-icon {
+            font-size: 2em;
+            color: #3498db;
+            margin-right: 15px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-card {
+                padding: 30px 20px;
+            }
+            
+            .menu-title {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-switch">
+                <button onclick="switchLanguage('en')" class="active" id="lang-en">English</button>
+                <button onclick="switchLanguage('tr')" id="lang-tr">Türkçe</button>
+            </div>
+            <h1 data-lang-en="Cudi Final 2025" data-lang-tr="Kriptografi Araçları">Cudi Final 2025</h1>
+            <p data-lang-en="Secure Encryption and Hashing Solutions" data-lang-tr="Güvenli Şifreleme ve Hash Çözümleri">Secure Encryption and Hashing Solutions</p>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="main-menu">
+            <h2 class="menu-title" data-lang-en="Choose Your Tool" data-lang-tr="Aracınızı Seçin">Choose Your Tool</h2>
+            <p class="menu-subtitle" data-lang-en="Select the cryptographic operation you want to perform" data-lang-tr="Gerçekleştirmek istediğiniz kriptografik işlemi seçin">Select the cryptographic operation you want to perform</p>
+            
+            <div class="menu-options">
+                <div class="menu-card" onclick="showSection('aes-encrypt-section')">
+                    <i class="fas fa-lock menu-icon"></i>
+                    <h3 data-lang-en="AES Encryption" data-lang-tr="AES Şifreleme">AES Encryption</h3>
+                    <p data-lang-en="Encrypt and decrypt your data using Advanced Encryption Standard with 256-bit security" data-lang-tr="256-bit güvenlik ile Gelişmiş Şifreleme Standardı kullanarak verilerinizi şifreleyin ve çözün">Encrypt and decrypt your data using Advanced Encryption Standard with 256-bit security</p>
+                </div>
+                
+                <div class="menu-card" onclick="showSection('hash-section')">
+                    <i class="fas fa-fingerprint menu-icon"></i>
+                    <h3 data-lang-en="SHA256 Hash" data-lang-tr="SHA256 Hash">SHA256 Hash</h3>
+                    <p data-lang-en="Generate secure SHA256 hash values for data integrity verification and digital signatures" data-lang-tr="Veri bütünlüğü doğrulaması ve dijital imzalar için güvenli SHA256 hash değerleri oluşturun">Generate secure SHA256 hash values for data integrity verification and digital signatures</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AES Encrypt Section -->
+        <div id="aes-encrypt-section" class="content hidden">
+            <button class="back-button" onclick="showMainMenu()">
+                <i class="fas fa-arrow-left"></i> <span data-lang-en="Back to Menu" data-lang-tr="Menüye Dön">Back to Menu</span>
+            </button>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-shield-alt section-icon"></i>
+                    <h2 data-lang-en="AES Encryption" data-lang-tr="AES Şifreleme">AES Encryption</h2>
+                </div>
+                
+                <!-- Operation Toggle Buttons -->
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <button id="encrypt-toggle-btn" style="background: linear-gradient(135deg, #3498db, #2980b9); margin-right: 10px;">
+                        <i class="fas fa-shield-alt"></i> <span data-lang-en="Encrypt" data-lang-tr="Şifrele">Encrypt</span>
+                    </button>
+                    <button onclick="showSection('aes-decrypt-section')" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">
+                        <i class="fas fa-unlock"></i> <span data-lang-en="Decrypt" data-lang-tr="Çöz">Decrypt</span>
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Key Size:" data-lang-tr="Anahtar Boyutu:">Key Size:</label>
+                    <select id="aes-encrypt-keysize" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        <option value="128" data-lang-en="128 bits" data-lang-tr="128 bit (Hızlı)">128 bits</option>
+                        <option value="192" data-lang-en="192 bits" data-lang-tr="192 bit (Dengeli)">192 bits</option>
+                        <option value="256" selected data-lang-en="256 bits" data-lang-tr="256 bit (En Güvenli)">256 bits</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Encryption Mode:" data-lang-tr="Şifreleme Modu:">Encryption Mode:</label>
+                    <select id="aes-encrypt-mode" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;" onchange="updateIVRequirement('encrypt'); updatePaddingVisibility('encrypt')">
+                        <option value="GCM" selected data-lang-en="GCM (Galois/Counter Mode)" data-lang-tr="GCM (Galois/Counter Modu - Önerilen)">GCM (Galois/Counter Mode)</option>
+                        <option value="CBC" data-lang-en="CBC (Cipher Block Chaining)" data-lang-tr="CBC (Şifre Blok Zincirleme)">CBC (Cipher Block Chaining)</option>
+                        <option value="CTR" data-lang-en="CTR (Counter Mode)" data-lang-tr="CTR (Sayaç Modu)">CTR (Counter Mode)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="aes-encrypt-padding-group" style="display: none;">
+                    <label data-lang-en="Padding Scheme:" data-lang-tr="Dolgu Şeması:">Padding Scheme:</label>
+                    <select id="aes-encrypt-padding" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        <option value="PKCS7" selected data-lang-en="PKCS#7 (Most Common)" data-lang-tr="PKCS#7 (En Yaygın)">PKCS#7 (Most Common)</option>
+                        <option value="ANSI" data-lang-en="ANSI X9.23" data-lang-tr="ANSI X9.23">ANSI X9.23</option>
+                        <option value="ISO" data-lang-en="ISO/IEC 7816-4" data-lang-tr="ISO/IEC 7816-4">ISO/IEC 7816-4</option>
+                    </select>
+                    <div class="file-info" id="aes-encrypt-padding-info" style="margin-top: 5px; font-size: 12px; color: #7f8c8d;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label data-lang-en="Encryption Key:" data-lang-tr="Key:">Encryption Key:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="aes-encrypt-password" data-lang-en="Enter your encryption key" data-lang-tr="Şifreleme anahtarınızı girin" placeholder="Enter your encryption key" style="flex: 1;">
+                        <button onclick="generateKey('aes-encrypt-password', 'aes-encrypt-keysize')" style="padding: 12px; background: linear-gradient(135deg, #27ae60, #229954); white-space: nowrap;">
+                            <i class="fas fa-key"></i> <span data-lang-en="Generate Key" data-lang-tr="Anahtar Üret">Generate Key</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="IV:" data-lang-tr="IV:">IV:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="aes-encrypt-iv" data-lang-en="Auto-generated or enter custom IV" data-lang-tr="Otomatik oluşturuldu veya özel IV girin" placeholder="Auto-generated or enter custom IV" style="flex: 1;" readonly>
+                        <button onclick="generateIV('aes-encrypt-iv', 'aes-encrypt-mode')" style="padding: 12px; background: linear-gradient(135deg, #e67e22, #d35400); white-space: nowrap;">
+                            <i class="fas fa-random"></i> <span data-lang-en="Generate IV" data-lang-tr="IV Üret">Generate IV</span>
+                        </button>
+                    </div>
+                    <div class="file-info" id="aes-encrypt-iv-info" style="margin-top: 5px; font-size: 12px; color: #7f8c8d;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Text to Encrypt:" data-lang-tr="Şifrelenecek Metin:">Text to Encrypt:</label>
+                    <textarea id="aes-encrypt-text" data-lang-en="Enter text to encrypt" data-lang-tr="Şifrelenecek metni girin" placeholder="Enter text to encrypt"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Or Upload File:" data-lang-tr="Veya Dosya Yükle:">Or Upload File:</label>
+                    <input type="file" id="aes-encrypt-file">
+                    <div class="file-info" id="aes-encrypt-file-info"></div>
+                </div>
+
+                <button onclick="encryptAESData()">
+                    <i class="fas fa-shield-alt"></i> <span data-lang-en="Encrypt" data-lang-tr="Şifrele">Encrypt</span>
+                </button>
+
+                <div id="aes-encrypt-result"></div>
+            </div>
+        </div>
+
+        <!-- AES Decrypt Section -->
+        <div id="aes-decrypt-section" class="content hidden">
+            <button class="back-button" onclick="showMainMenu()">
+                <i class="fas fa-arrow-left"></i> <span data-lang-en="Back to Menu" data-lang-tr="Menüye Dön">Back to Menu</span>
+            </button>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-unlock section-icon"></i>
+                    <h2 data-lang-en="AES Decryption" data-lang-tr="AES Çözme">AES Decryption</h2>
+                </div>
+                
+                <!-- Operation Toggle Buttons -->
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <button onclick="showSection('aes-encrypt-section')" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d); margin-right: 10px;">
+                        <i class="fas fa-shield-alt"></i> <span data-lang-en="Encrypt" data-lang-tr="Şifrele">Encrypt</span>
+                    </button>
+                    <button id="decrypt-toggle-btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-unlock"></i> <span data-lang-en="Decrypt" data-lang-tr="Çöz">Decrypt</span>
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Key Size:" data-lang-tr="Anahtar Boyutu:">Key Size:</label>
+                    <select id="aes-decrypt-keysize" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        <option value="128" data-lang-en="128 bits" data-lang-tr="128 bit (Hızlı)">128 bits</option>
+                        <option value="192" data-lang-en="192 bits" data-lang-tr="192 bit (Dengeli)">192 bits</option>
+                        <option value="256" selected data-lang-en="256 bits" data-lang-tr="256 bit (En Güvenli)">256 bits</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Mode:" data-lang-tr="Çözme Modu:">Mode:</label>
+                    <select id="aes-decrypt-mode" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;" onchange="updateIVRequirement('decrypt'); updatePaddingVisibility('decrypt')">
+                        <option value="GCM" selected data-lang-en="GCM (Galois/Counter Mode)" data-lang-tr="GCM (Galois/Counter Modu - Önerilen)">GCM (Galois/Counter Mode)</option>
+                        <option value="CBC" data-lang-en="CBC (Cipher Block Chaining)" data-lang-tr="CBC (Şifre Blok Zincirleme)">CBC (Cipher Block Chaining)</option>
+                        <option value="CTR" data-lang-en="CTR (Counter Mode)" data-lang-tr="CTR (Sayaç Modu)">CTR (Counter Mode)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="aes-decrypt-padding-group" style="display: none;">
+                    <label data-lang-en="Padding Scheme:" data-lang-tr="Dolgu Şeması:">Padding Scheme:</label>
+                    <select id="aes-decrypt-padding" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        <option value="PKCS7" selected data-lang-en="PKCS#7 (Most Common)" data-lang-tr="PKCS#7 (En Yaygın)">PKCS#7</option>
+                        <option value="ANSI" data-lang-en="ANSI X9.23" data-lang-tr="ANSI X9.23">ANSI X9.23</option>
+                        <option value="ISO" data-lang-en="ISO/IEC 7816-4" data-lang-tr="ISO/IEC 7816-4">ISO/IEC 7816-4</option>
+                    </select>
+                    <div class="file-info" id="aes-decrypt-padding-info" style="margin-top: 5px; font-size: 12px; color: #7f8c8d;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label data-lang-en="Key:" data-lang-tr="Çözme Anahtarı:">Key:</label>
+                    <input type="text" id="aes-decrypt-password" data-lang-en="Enter your decryption key" data-lang-tr="Çözme anahtarınızı girin" placeholder="Enter your decryption key" style="width: 100%;">
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Initialization Vector (IV):" data-lang-tr="Başlatma Vektörü (IV):">Initialization Vector (IV):</label>
+                    <input type="text" id="aes-decrypt-iv" data-lang-en="Enter IV from encrypted data" data-lang-tr="Şifrelenmiş veriden IV girin" placeholder="Enter IV from encrypted data" style="width: 100%;">
+                    <div class="file-info" id="aes-decrypt-iv-info" style="margin-top: 5px; font-size: 12px; color: #7f8c8d;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Encrypted Data:" data-lang-tr="Şifrelenmiş Veri:">Encrypted Data:</label>
+                    <textarea id="aes-decrypt-text" data-lang-en="Paste encrypted data here" data-lang-tr="Şifrelenmiş veriyi buraya yapıştırın" placeholder="Paste encrypted data here"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-lang-en="Or Upload Encrypted File:" data-lang-tr="Veya Şifrelenmiş Dosya Yükle:">Or Upload Encrypted File:</label>
+                    <input type="file" id="aes-decrypt-file" accept=".txt">
+                    <div class="file-info" id="aes-decrypt-file-info"></div>
+                </div>
+
+                <button onclick="decryptAESData()">
+                    <i class="fas fa-unlock"></i> <span data-lang-en="Decrypt" data-lang-tr="Çöz">Decrypt</span>
+                </button>
+
+                <div id="aes-decrypt-result"></div>
+            </div>
+        </div>
+
+        <div id="aes-section" class="content hidden">
+        </div>
+
+        <div id="hash-section" class="content hidden">
+            <button class="back-button" onclick="showMainMenu()">
+                <i class="fas fa-arrow-left"></i> <span data-lang-en="Back to Menu" data-lang-tr="Menüye Dön">Back to Menu</span>
+            </button>
+            
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-fingerprint section-icon"></i>
+                    <h2 data-lang-en="SHA256 Hash Tools" data-lang-tr="SHA256 Hash Araçları">SHA256 Hash Tools</h2>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <button onclick="showHashTab('calculator')" id="hash-calc-tab" style="background: linear-gradient(135deg, #3498db, #2980b9); margin-right: 10px;">
+                        <i class="fas fa-calculator"></i> <span data-lang-en="Hash Calculator" data-lang-tr="Hash Hesaplayıcı">Hash Calculator</span>
+                    </button>
+                    <button onclick="showHashTab('cracker')" id="hash-crack-tab" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-hammer"></i> <span data-lang-en="Hash Cracker" data-lang-tr="Hash Kırıcı">Hash Cracker</span>
+                    </button>
+                </div>
+
+                <div id="hash-calculator-section">
+                    <div class="form-group">
+                        <label data-lang-en="Text Input:" data-lang-tr="Metin Girişi:">Text Input:</label>
+                        <textarea id="hash-text" data-lang-en="Enter text to hash" data-lang-tr="Hash için metin girin" placeholder="Enter text to hash"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-lang-en="Or Upload File:" data-lang-tr="Veya Dosya Yükle:">Or Upload File:</label>
+                        <input type="file" id="hash-file">
+                        <div class="file-info" id="hash-file-info"></div>
+                    </div>
+
+                    <button onclick="calculateSHA256()">
+                        <i class="fas fa-calculator"></i> <span data-lang-en="Calculate Hash" data-lang-tr="Hash Hesapla">Calculate Hash</span>
+                    </button>
+
+                    <div id="hash-result"></div>
+                </div>
+
+                <div id="hash-cracker-section" style="display: none;">
+                    <div class="form-group">
+                        <label data-lang-en="Target SHA256 Hash:" data-lang-tr="Hedef SHA256 Hash:">Target SHA256 Hash:</label>
+                        <input type="text" id="crack-target-hash" data-lang-en="Enter SHA256 hash to crack (64 hex characters)" data-lang-tr="Kırılacak SHA256 hash girin (64 hex karakter)" placeholder="Enter SHA256 hash to crack (64 hex characters)">
+                    </div>
+
+                    <div class="form-group">
+                        <label data-lang-en="Minimum Length:" data-lang-tr="Minimum Uzunluk:">Minimum Length:</label>
+                        <select id="crack-min-length" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-lang-en="Maximum Length:" data-lang-tr="Maximum Uzunluk:">Maximum Length:</label>
+                        <select id="crack-max-length" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-lang-en="Character Sets:" data-lang-tr="Karakter Setleri:">Character Sets:</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; font-weight: normal;">
+                                <input type="checkbox" id="crack-lowercase" checked style="margin-right: 8px; width: auto;">
+                                <span data-lang-en="Lowercase (a-z)" data-lang-tr="Küçük harf (a-z)">Lowercase (a-z)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; font-weight: normal;">
+                                <input type="checkbox" id="crack-uppercase" style="margin-right: 8px; width: auto;">
+                                <span data-lang-en="Uppercase (A-Z)" data-lang-tr="Büyük harf (A-Z)">Uppercase (A-Z)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; font-weight: normal;">
+                                <input type="checkbox" id="crack-digits" checked style="margin-right: 8px; width: auto;">
+                                <span data-lang-en="Digits (0-9)" data-lang-tr="Rakam (0-9)">Digits (0-9)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; font-weight: normal;">
+                                <input type="checkbox" id="crack-symbols" style="margin-right: 8px; width: auto;">
+                                <span data-lang-en="Symbols (!@#$...)" data-lang-tr="Sembol (!@#$...)">Symbols (!@#$...)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onclick="startHashCracking()" id="crack-start-btn">
+                        <i class="fas fa-hammer"></i> <span data-lang-en="Start Cracking" data-lang-tr="Kırmaya Başla">Start Cracking</span>
+                    </button>
+                    
+                    <button onclick="stopHashCracking()" id="crack-stop-btn" style="display: none; background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-stop"></i> <span data-lang-en="Stop Cracking" data-lang-tr="Kırmayı Durdur">Stop Cracking</span>
+                    </button>
+
+                    <div id="crack-progress" style="display: none; margin-top: 15px;">
+                        <div style="background: #f0f0f0; border-radius: 10px; padding: 2px;">
+                            <div id="crack-progress-bar" style="background: linear-gradient(135deg, #3498db, #2980b9); height: 20px; border-radius: 8px; width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                        <div id="crack-status" style="margin-top: 10px; font-size: 14px; color: #7f8c8d;"></div>
+                    </div>
+
+                    <div id="crack-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        let currentLang = 'en';
+
+        function showMainMenu() {
+            document.getElementById('main-menu').classList.remove('hidden');
+            document.getElementById('aes-encrypt-section').classList.add('hidden');
+            document.getElementById('aes-decrypt-section').classList.add('hidden');
+            document.getElementById('hash-section').classList.add('hidden');
+            
+            clearAllInputs();
+        }
+
+        function showSection(sectionId) {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('aes-encrypt-section').classList.add('hidden');
+            document.getElementById('aes-decrypt-section').classList.add('hidden');
+            document.getElementById('hash-section').classList.add('hidden');
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function updateIVRequirement(type) {
+            const mode = document.getElementById(`aes-${type}-mode`).value;
+            const info = document.getElementById(`aes-${type}-iv-info`);
+            
+            let message = '';
+            if (currentLang === 'en') {
+                switch(mode) {
+                    case 'GCM':
+                        message = 'GCM mode: IV should be 12 bytes (96 bits) for optimal security';
+                        break;
+                    case 'CBC':
+                        message = 'CBC mode: IV must be 16 bytes (128 bits) and random for each encryption';
+                        break;
+                    case 'CTR':
+                        message = 'CTR mode: IV should be 16 bytes (128 bits) and unique for each encryption';
+                        break;
+                }
+            } else {
+                switch(mode) {
+                    case 'GCM':
+                        message = 'GCM modu: Optimal güvenlik için IV 12 bayt (96 bit) olmalıdır';
+                        break;
+                    case 'CBC':
+                        message = 'CBC modu: IV 16 bayt (128 bit) olmalı ve her şifreleme için rastgele olmalıdır';
+                        break;
+                    case 'CTR':
+                        message = 'CTR modu: IV 16 bayt (128 bit) olmalı ve her şifreleme için benzersiz olmalıdır';
+                        break;
+                }
+            }
+            info.textContent = message;
+        }
+
+        function updatePaddingVisibility(type) {
+            const mode = document.getElementById(`aes-${type}-mode`).value;
+            const paddingGroup = document.getElementById(`aes-${type}-padding-group`);
+            const paddingInfo = document.getElementById(`aes-${type}-padding-info`);
+            
+            if (mode === 'CBC') {
+                paddingGroup.style.display = 'block';
+                updatePaddingInfo(type);
+            } else {
+                paddingGroup.style.display = 'none';
+                paddingInfo.textContent = '';
+            }
+        }
+
+        function updatePaddingInfo(type) {
+            const padding = document.getElementById(`aes-${type}-padding`).value;
+            const info = document.getElementById(`aes-${type}-padding-info`);
+            
+            let message = '';
+            if (currentLang === 'en') {
+                switch(padding) {
+                    case 'PKCS7':
+                        message = 'PKCS#7: Pads with bytes, each byte value equals the padding length';
+                        break;
+                    case 'ANSI':
+                        message = 'ANSI X9.23: Pads with zeros, last byte indicates padding length';
+                        break;
+                    case 'ISO':
+                        message = 'ISO/IEC 7816-4: Pads with 0x80 followed by zeros';
+                        break;
+                }
+            } else {
+                switch(padding) {
+                    case 'PKCS7':
+                        message = 'PKCS#7: Her bayt değeri dolgu uzunluğuna eşit baytlarla doldurur';
+                        break;
+                    case 'ANSI':
+                        message = 'ANSI X9.23: Sıfırlarla doldurur, son bayt dolgu uzunluğunu belirtir';
+                        break;
+                    case 'ISO':
+                        message = 'ISO/IEC 7816-4: 0x80 ve ardından sıfırlarla doldurur';
+                        break;
+                }
+            }
+            info.textContent = message;
+        }
+
+        function clearAllInputs() {
+            const legacyElements = [
+                'aes-result', 'aes-password', 'aes-text', 'aes-file', 'aes-file-info'
+            ];
+            legacyElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = '';
+                    } else {
+                        element.innerHTML = '';
+                        element.textContent = '';
+                    }
+                }
+            });
+            
+            document.getElementById('aes-encrypt-result').innerHTML = '';
+            document.getElementById('aes-encrypt-password').value = '';
+            document.getElementById('aes-encrypt-text').value = '';
+            document.getElementById('aes-encrypt-file').value = '';
+            document.getElementById('aes-encrypt-file-info').textContent = '';
+            document.getElementById('aes-encrypt-keysize').value = '256';
+            document.getElementById('aes-encrypt-mode').value = 'GCM';
+            document.getElementById('aes-encrypt-padding').value = 'PKCS7';
+            document.getElementById('aes-encrypt-iv').value = '';
+            document.getElementById('aes-encrypt-iv-info').textContent = '';
+            document.getElementById('aes-encrypt-padding-info').textContent = '';
+            
+            document.getElementById('aes-decrypt-result').innerHTML = '';
+            document.getElementById('aes-decrypt-password').value = '';
+            document.getElementById('aes-decrypt-text').value = '';
+            document.getElementById('aes-decrypt-file').value = '';
+            document.getElementById('aes-decrypt-file-info').textContent = '';
+            document.getElementById('aes-decrypt-keysize').value = '256';
+            document.getElementById('aes-decrypt-mode').value = 'GCM';
+            document.getElementById('aes-decrypt-padding').value = 'PKCS7';
+            document.getElementById('aes-decrypt-iv').value = '';
+            document.getElementById('aes-decrypt-iv-info').textContent = '';
+            document.getElementById('aes-decrypt-padding-info').textContent = '';
+            
+            document.getElementById('hash-result').innerHTML = '';
+            document.getElementById('hash-text').value = '';
+            document.getElementById('hash-file').value = '';
+            document.getElementById('hash-file-info').textContent = '';
+            
+            document.getElementById('crack-target-hash').value = '';
+            document.getElementById('crack-min-length').value = '3';
+            document.getElementById('crack-max-length').value = '5';
+            document.getElementById('crack-lowercase').checked = true;
+            document.getElementById('crack-uppercase').checked = false;
+            document.getElementById('crack-digits').checked = true;
+            document.getElementById('crack-symbols').checked = false;
+            document.getElementById('crack-custom-chars').value = '';
+            document.getElementById('crack-result').innerHTML = '';
+            stopHashCracking();
+            showHashTab('calculator');
+            
+            setTimeout(() => {
+                updateIVRequirement('encrypt');
+                updateIVRequirement('decrypt');
+                updatePaddingVisibility('encrypt');
+                updatePaddingVisibility('decrypt');
+            }, 100);
+        }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.language-switch button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            document.querySelectorAll('[data-lang-en]').forEach(element => {
+                const newText = element.getAttribute(`data-lang-${lang}`);
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = newText;
+                } else if (element.tagName === 'OPTION') {
+                    element.textContent = newText;
+                } else {
+                    element.textContent = newText;
+                }
+            });
+            
+            updateIVRequirement('encrypt');
+            updateIVRequirement('decrypt');
+            updatePaddingInfo('encrypt');
+            updatePaddingInfo('decrypt');
+        }
+
+        function showResult(elementId, content, isError = false) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+            element.className = isError ? 'result error' : 'result';
+        }
+
+        function getErrorMessage(key) {
+            const messages = {
+                'no-input': {
+                    en: 'Please enter text or select a file.',
+                    tr: 'Lütfen metin girin veya dosya seçin.'
+                },
+                'no-password': {
+                    en: 'Please enter a password.',
+                    tr: 'Lütfen bir şifre girin.'
+                },
+                'encryption-error': {
+                    en: 'Encryption failed. Please check your input.',
+                    tr: 'Şifreleme başarısız. Lütfen girişinizi kontrol edin.'
+                },
+                'decryption-error': {
+                    en: 'Decryption failed. Please check your password and encrypted data.',
+                    tr: 'Çözme başarısız. Lütfen şifrenizi ve şifrelenmiş veriyi kontrol edin.'
+                },
+                'hash-error': {
+                    en: 'Hash calculation failed.',
+                    tr: 'Hash hesaplama başarısız.'
+                },
+                'invalid-iv': {
+                    en: 'Invalid IV format. Please enter a valid hexadecimal IV.',
+                    tr: 'Geçersiz IV formatı. Lütfen geçerli bir onaltılık IV girin.'
+                }
+            };
+            return messages[key][currentLang];
+        }
+
+        function str2ab(str) {
+            const encoder = new TextEncoder();
+            return encoder.encode(str);
+        }
+
+        function ab2str(buf) {
+            const decoder = new TextDecoder();
+            return decoder.decode(buf);
+        }
+
+        function ab2base64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
+
+        function base642ab(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        async function deriveKey(password, keySize = 256, mode = 'GCM') {
+            const encoder = new TextEncoder();
+            const keyMaterial = await crypto.subtle.importKey(
+                'raw',
+                encoder.encode(password),
+                { name: 'PBKDF2' },
+                false,
+                ['deriveKey']
+            );
+            
+            const algorithmName = mode === 'GCM' ? 'AES-GCM' : mode === 'CBC' ? 'AES-CBC' : 'AES-CTR';
+            
+            return crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: encoder.encode('salt'),
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: algorithmName, length: parseInt(keySize) },
+                false,
+                ['encrypt', 'decrypt']
+            );
+        }
+
+        function addPKCS7Padding(data, blockSize = 16) {
+            const padding = blockSize - (data.byteLength % blockSize);
+            const paddedData = new Uint8Array(data.byteLength + padding);
+            paddedData.set(new Uint8Array(data));
+            
+            for (let i = data.byteLength; i < paddedData.length; i++) {
+                paddedData[i] = padding;
+            }
+            
+            return paddedData.buffer;
+        }
+
+        function addANSIPadding(data, blockSize = 16) {
+            const padding = blockSize - (data.byteLength % blockSize);
+            const paddedData = new Uint8Array(data.byteLength + padding);
+            paddedData.set(new Uint8Array(data));
+            
+            for (let i = data.byteLength; i < paddedData.length - 1; i++) {
+                paddedData[i] = 0;
+            }
+            paddedData[paddedData.length - 1] = padding;
+            
+            return paddedData.buffer;
+        }
+
+        function addISOPadding(data, blockSize = 16) {
+            const padding = blockSize - (data.byteLength % blockSize);
+            const paddedData = new Uint8Array(data.byteLength + padding);
+            paddedData.set(new Uint8Array(data));
+            
+            paddedData[data.byteLength] = 0x80;
+            
+            for (let i = data.byteLength + 1; i < paddedData.length; i++) {
+                paddedData[i] = 0;
+            }
+            
+            return paddedData.buffer;
+        }
+
+        function removePKCS7Padding(data) {
+            const uint8Data = new Uint8Array(data);
+            const paddingLength = uint8Data[uint8Data.length - 1];
+            
+            for (let i = uint8Data.length - paddingLength; i < uint8Data.length; i++) {
+                if (uint8Data[i] !== paddingLength) {
+                    throw new Error('Invalid PKCS#7 padding');
+                }
+            }
+            
+            return data.slice(0, data.byteLength - paddingLength);
+        }
+
+        function removeANSIPadding(data) {
+            const uint8Data = new Uint8Array(data);
+            const paddingLength = uint8Data[uint8Data.length - 1];
+            
+            for (let i = uint8Data.length - paddingLength; i < uint8Data.length - 1; i++) {
+                if (uint8Data[i] !== 0) {
+                    throw new Error('Invalid ANSI X9.23 padding');
+                }
+            }
+            
+            return data.slice(0, data.byteLength - paddingLength);
+        }
+
+        function removeISOPadding(data) {
+            const uint8Data = new Uint8Array(data);
+            
+            let paddingStart = -1;
+            for (let i = uint8Data.length - 1; i >= 0; i--) {
+                if (uint8Data[i] === 0x80) {
+                    paddingStart = i;
+                    break;
+                } else if (uint8Data[i] !== 0) {
+                    throw new Error('Invalid ISO/IEC 7816-4 padding');
+                }
+            }
+            
+            if (paddingStart === -1) {
+                throw new Error('Invalid ISO/IEC 7816-4 padding');
+            }
+            
+            return data.slice(0, paddingStart);
+        }
+
+        async function encryptAESData() {
+            try {
+                const password = document.getElementById('aes-encrypt-password').value;
+                const textInput = document.getElementById('aes-encrypt-text').value;
+                const fileInput = document.getElementById('aes-encrypt-file').files[0];
+                const keySize = document.getElementById('aes-encrypt-keysize').value;
+                const mode = document.getElementById('aes-encrypt-mode').value;
+                const padding = document.getElementById('aes-encrypt-padding').value;
+                const customIV = document.getElementById('aes-encrypt-iv').value;
+
+                if (!password) {
+                    showResult('aes-encrypt-result', getErrorMessage('no-password'), true);
+                    return;
+                }
+
+                let data;
+                let isFile = false;
+                let fileName = 'encrypted_text.txt';
+                let fileType = 'text';
+
+                if (fileInput) {
+                    data = await fileInput.arrayBuffer();
+                    isFile = true;
+                    fileName = 'encrypted_' + fileInput.name;
+                    fileType = fileInput.type || 'application/octet-stream';
+                } else if (textInput) {
+                    data = str2ab(textInput);
+                } else {
+                    showResult('aes-encrypt-result', getErrorMessage('no-input'), true);
+                    return;
+                }
+
+                if (mode === 'CBC') {
+                    switch(padding) {
+                        case 'PKCS7':
+                            data = addPKCS7Padding(data);
+                            break;
+                        case 'ANSI':
+                            data = addANSIPadding(data);
+                            break;
+                        case 'ISO':
+                            data = addISOPadding(data);
+                            break;
+                    }
+                }
+
+                const key = await deriveKey(password, keySize, mode);
+                
+                let iv;
+                if (customIV) {
+                    try {
+                        iv = new Uint8Array(hex2ab(customIV));
+                    } catch (error) {
+                        showResult('aes-encrypt-result', getErrorMessage('invalid-iv'), true);
+                        return;
+                    }
+                } else {
+                    iv = generateIVForMode(mode);
+                    document.getElementById('aes-encrypt-iv').value = ab2hex(iv);
+                }
+                
+                let algorithm;
+                switch(mode) {
+                    case 'GCM':
+                        algorithm = { name: 'AES-GCM', iv: iv };
+                        break;
+                    case 'CBC':
+                        algorithm = { name: 'AES-CBC', iv: iv };
+                        break;
+                    case 'CTR':
+                        algorithm = { name: 'AES-CTR', counter: iv, length: 64 };
+                        break;
+                }
+
+                const encrypted = await crypto.subtle.encrypt(algorithm, key, data);
+
+                // Store file type information in the encrypted data format
+                const result = keySize + ':' + mode + ':' + (mode === 'CBC' ? padding + ':' : '') + fileType + ':' + ab2hex(iv) + ':' + ab2hex(encrypted);
+                
+                if (isFile) {
+                    const downloadButton = `<button onclick="downloadFile('${result}', '${fileName}', 'text/plain')" style="background: linear-gradient(135deg, #27ae60, #229954); margin-right: 10px;">
+                        <i class="fas fa-download"></i> <span data-lang-en="Download Encrypted File" data-lang-tr="Şifrelenmiş Dosyayı İndir">Download Encrypted File</span>
+                    </button>`;
+                    
+                    const copyButton = `<button onclick="copyToClipboard('${result}')" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-copy"></i> <span data-lang-en="Copy Encrypted Data" data-lang-tr="Şifrelenmiş Veriyi Kopyala">Copy Encrypted Data</span>
+                    </button>`;
+                    
+                    showResult('aes-encrypt-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'File Encrypted Successfully (AES-' + keySize + '-' + mode + (mode === 'CBC' ? '-' + padding : '') + ')' : 'Dosya Başarıyla Şifrelendi (AES-' + keySize + '-' + mode + (mode === 'CBC' ? '-' + padding : '') + ')'}</strong><br>
+                        ${currentLang === 'en' ? 'The encrypted file is ready for download.' : 'Şifrelenmiş dosya indirilmeye hazır.'}<br><br>
+                        <div style="margin-bottom: 15px;">
+                            ${downloadButton}${copyButton}
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>${currentLang === 'en' ? 'Encrypted Data Output:' : 'Şifrelenmiş Veri Çıktısı:'}</strong><br>
+                            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 10px; margin-top: 8px; font-family: monospace; font-size: 12px; word-break: break-all; color: #495057; max-height: 300px; overflow-y: auto;">
+                                ${result}
+                            </div>
+                        </div>`);
+                } else {
+                    const downloadButton = `<button onclick="downloadFile('${result}', 'encrypted_text.txt', 'text/plain')" style="background: linear-gradient(135deg, #27ae60, #229954); margin-right: 10px;">
+                        <i class="fas fa-download"></i> <span data-lang-en="Download Encrypted Data" data-lang-tr="Şifrelenmiş Veriyi İndir">Download Encrypted Data</span>
+                    </button>`;
+
+                    const copyButton = `<button onclick="copyToClipboard('${result}')" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-copy"></i> <span data-lang-en="Copy Encrypted Data" data-lang-tr="Şifrelenmiş Veriyi Kopyala">Copy Encrypted Data</span>
+                    </button>`;
+
+                    showResult('aes-encrypt-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Text Encrypted Successfully (AES-' + keySize + '-' + mode + (mode === 'CBC' ? '-' + padding : '') + ')' : 'Metin Başarıyla Şifrelendi (AES-' + keySize + '-' + mode + (mode === 'CBC' ? '-' + padding : '') + ')'}</strong><br><br>
+                        <div style="margin-bottom: 15px;">
+                            ${downloadButton}${copyButton}
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>${currentLang === 'en' ? 'Encrypted Data Output:' : 'Şifrelenmiş Veri Çıktısı:'}</strong><br>
+                            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 10px; margin-top: 8px; font-family: monospace; font-size: 12px; word-break: break-all; color: #495057; max-height: 300px; overflow-y: auto;">
+                                ${result}
+                            </div>
+                        </div>`);
+                }
+                
+            } catch (error) {
+                showResult('aes-encrypt-result', getErrorMessage('encryption-error'), true);
+            }
+        }
+
+        async function decryptAESData() {
+            try {
+                const password = document.getElementById('aes-decrypt-password').value;
+                const textInput = document.getElementById('aes-decrypt-text').value;
+                const fileInput = document.getElementById('aes-decrypt-file').files[0];
+                const keySize = document.getElementById('aes-decrypt-keysize').value;
+                const mode = document.getElementById('aes-decrypt-mode').value;
+                const padding = document.getElementById('aes-decrypt-padding').value;
+                const customIV = document.getElementById('aes-decrypt-iv').value;
+
+                if (!password) {
+                    showResult('aes-decrypt-result', getErrorMessage('no-password'), true);
+                    return;
+                }
+
+                let encryptedData;
+                let isFile = false;
+                let originalFileName = 'decrypted_file.txt';
+
+                if (fileInput) {
+                    const fileContent = await fileInput.text();
+                    encryptedData = fileContent.trim();
+                    isFile = true;
+                    
+                    const fileName = fileInput.name;
+                    if (fileName.startsWith('encrypted_')) {
+                        originalFileName = fileName.substring(10);
+                    } else {
+                        originalFileName = 'decrypted_' + fileName;
+                    }
+                } else if (textInput) {
+                    encryptedData = textInput.trim();
+                } else {
+                    showResult('aes-decrypt-result', getErrorMessage('no-input'), true);
+                    return;
+                }
+
+                let iv, encrypted, actualKeySize, actualMode, actualPadding, fileType = 'text/plain';
+
+                const parts = encryptedData.split(':');
+                
+                // Handle new format with file type (6 parts for CBC, 5 parts for others)
+                if (parts.length === 6 && parts[1] === 'CBC') {
+                    actualKeySize = parts[0];
+                    actualMode = parts[1];
+                    actualPadding = parts[2];
+                    fileType = parts[3];
+                    iv = hex2ab(parts[4]);
+                    encrypted = hex2ab(parts[5]);
+                    
+                    document.getElementById('aes-decrypt-iv').value = parts[4];
+                    document.getElementById('aes-decrypt-mode').value = actualMode;
+                    document.getElementById('aes-decrypt-keysize').value = actualKeySize;
+                    document.getElementById('aes-decrypt-padding').value = actualPadding;
+                    updatePaddingVisibility('decrypt');
+                } else if (parts.length === 5 && parts[1] !== 'CBC') {
+                    actualKeySize = parts[0];
+                    actualMode = parts[1];
+                    actualPadding = null;
+                    fileType = parts[2];
+                    iv = hex2ab(parts[3]);
+                    encrypted = hex2ab(parts[4]);
+                    
+                    document.getElementById('aes-decrypt-iv').value = parts[3];
+                    document.getElementById('aes-decrypt-mode').value = actualMode;
+                    document.getElementById('aes-decrypt-keysize').value = actualKeySize;
+                    updatePaddingVisibility('decrypt');
+                }
+                // Handle legacy format without file type
+                else if (parts.length === 5 && parts[1] === 'CBC') {
+                    actualKeySize = parts[0];
+                    actualMode = parts[1];
+                    actualPadding = parts[2];
+                    iv = hex2ab(parts[3]);
+                    encrypted = hex2ab(parts[4]);
+                    
+                    document.getElementById('aes-decrypt-iv').value = parts[3];
+                    document.getElementById('aes-decrypt-mode').value = actualMode;
+                    document.getElementById('aes-decrypt-keysize').value = actualKeySize;
+                    document.getElementById('aes-decrypt-padding').value = actualPadding;
+                    updatePaddingVisibility('decrypt');
+                } else if (parts.length === 4) {
+                    actualKeySize = parts[0];
+                    actualMode = parts[1];
+                    actualPadding = null;
+                    iv = hex2ab(parts[2]);
+                    encrypted = hex2ab(parts[3]);
+                    
+                    document.getElementById('aes-decrypt-iv').value = parts[2];
+                    document.getElementById('aes-decrypt-mode').value = actualMode;
+                    document.getElementById('aes-decrypt-keysize').value = actualKeySize;
+                    updatePaddingVisibility('decrypt');
+                } else if (customIV && encryptedData) {
+                    try {
+                        iv = hex2ab(customIV);
+                        encrypted = hex2ab(encryptedData);
+                        actualKeySize = keySize;
+                        actualMode = mode;
+                        actualPadding = mode === 'CBC' ? padding : null;
+                    } catch (error) {
+                        showResult('aes-decrypt-result', getErrorMessage('decryption-error'), true);
+                        return;
+                    }
+                } else {
+                    showResult('aes-decrypt-result', getErrorMessage('decryption-error'), true);
+                    return;
+                }
+
+                const key = await deriveKey(password, actualKeySize, actualMode);
+
+                let algorithm;
+                switch(actualMode) {
+                    case 'GCM':
+                        algorithm = { name: 'AES-GCM', iv: iv };
+                        break;
+                    case 'CBC':
+                        algorithm = { name: 'AES-CBC', iv: iv };
+                        break;
+                    case 'CTR':
+                        algorithm = { name: 'AES-CTR', counter: iv, length: 64 };
+                        break;
+                }
+
+                let decrypted = await crypto.subtle.decrypt(algorithm, key, encrypted);
+
+                if (actualMode === 'CBC' && actualPadding) {
+                    switch(actualPadding) {
+                        case 'PKCS7':
+                            decrypted = removePKCS7Padding(decrypted);
+                            break;
+                        case 'ANSI':
+                            decrypted = removeANSIPadding(decrypted);
+                            break;
+                        case 'ISO':
+                            decrypted = removeISOPadding(decrypted);
+                            break;
+                    }
+                }
+
+                // Determine if this is binary data or text
+                const isBinaryFile = fileType && !fileType.startsWith('text/') && fileType !== 'application/json';
+                
+                let result, downloadMimeType;
+                
+                if (isBinaryFile) {
+                    // For binary files, create a base64 data URL for display and use original mime type for download
+                    result = ab2base64(decrypted);
+                    downloadMimeType = fileType;
+                    
+                    // Create download button with proper binary handling
+                    const downloadButton = `<button onclick="downloadBinaryFile('${result}', '${originalFileName}', '${fileType}')" style="background: linear-gradient(135deg, #27ae60, #229954); margin-right: 10px;">
+                        <i class="fas fa-download"></i> <span data-lang-en="Download Decrypted File" data-lang-tr="Çözülmüş Dosyayı İndir">Download Decrypted File</span>
+                    </button>`;
+
+                    const copyButton = `<button onclick="copyToClipboard('${result}')" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-copy"></i> <span data-lang-en="Copy Base64 Data" data-lang-tr="Base64 Veriyi Kopyala">Copy Base64 Data</span>
+                    </button>`;
+
+                    const successMessage = isFile ? 
+                        (currentLang === 'en' ? 'Binary File Decrypted Successfully' : 'İkili Dosya Başarıyla Çözüldü') :
+                        (currentLang === 'en' ? 'Binary Data Decrypted Successfully' : 'İkili Veri Başarıyla Çözüldü');
+
+                    showResult('aes-decrypt-result', `<strong><i class="fas fa-unlock"></i> ${successMessage} (AES-${actualKeySize}-${actualMode}${actualPadding ? '-' + actualPadding : ''})</strong><br>
+                        <strong>File Type:</strong> ${fileType}<br><br>
+                        <div style="margin-bottom: 15px;">
+                            ${downloadButton}${copyButton}
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>${currentLang === 'en' ? 'Decrypted Data (Base64):' : 'Çözülmüş Veri (Base64):'}</strong><br>
+                            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 10px; margin-top: 8px; font-family: monospace; font-size: 12px; word-break: break-all; color: #495057; max-height: 300px; overflow-y: auto;">
+                                ${result.substring(0, 1000)}${result.length > 1000 ? '...' : ''}
+                            </div>
+                        </div>`);
+                } else {
+                    // For text files, convert to string as before
+                    result = ab2str(decrypted);
+                    downloadMimeType = 'text/plain';
+                    
+                    const downloadButton = `<button onclick="downloadFile('${result}', '${originalFileName}', '${downloadMimeType}')" style="background: linear-gradient(135deg, #27ae60, #229954); margin-right: 10px;">
+                        <i class="fas fa-download"></i> <span data-lang-en="Download Decrypted File" data-lang-tr="Çözülmüş Dosyayı İndir">Download Decrypted File</span>
+                    </button>`;
+
+                    const copyButton = `<button onclick="copyToClipboard('${result}')" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-copy"></i> <span data-lang-en="Copy Decrypted Data" data-lang-tr="Çözülmüş Veriyi Kopyala">Copy Decrypted Data</span>
+                    </button>`;
+
+                    const successMessage = isFile ? 
+                        (currentLang === 'en' ? 'File Decrypted Successfully' : 'Dosya Başarıyla Çözüldü') :
+                        (currentLang === 'en' ? 'Text Decrypted Successfully' : 'Metin Başarıyla Çözüldü');
+
+                    showResult('aes-decrypt-result', `<strong><i class="fas fa-unlock"></i> ${successMessage} (AES-${actualKeySize}-${actualMode}${actualPadding ? '-' + actualPadding : ''})</strong><br><br>
+                        <div style="margin-bottom: 15px;">
+                            ${downloadButton}${copyButton}
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>${currentLang === 'en' ? 'Decrypted Data Output:' : 'Çözülmüş Veri Çıktısı:'}</strong><br>
+                            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 10px; margin-top: 8px; font-family: monospace; font-size: 12px; word-break: break-all; color: #495057; max-height: 300px; overflow-y: auto;">
+                                ${result}
+                            </div>
+                        </div>`);
+                }
+                
+            } catch (error) {
+                showResult('aes-decrypt-result', getErrorMessage('decryption-error'), true);
+            }
+        }
+
+        // Binary file download function
+        function downloadBinaryFile(base64Data, filename, mimeType) {
+            try {
+                const byteCharacters = atob(base64Data);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: mimeType });
+                
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading binary file:', error);
+                alert(currentLang === 'en' ? 'Error downloading file. Please try again.' : 'Dosya indirilirken hata oluştu. Lütfen tekrar deneyin.');
+            }
+        }
+
+        let crackingInProgress = false;
+        let crackingWorker = null;
+
+        function generateCharacterSet() {
+            let charset = '';
+            
+            if (document.getElementById('crack-lowercase').checked) {
+                charset += 'abcdefghijklmnopqrstuvwxyz';
+            }
+            if (document.getElementById('crack-uppercase').checked) {
+                charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            }
+            if (document.getElementById('crack-digits').checked) {
+                charset += '0123456789';
+            }
+            if (document.getElementById('crack-symbols').checked) {
+                charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            }
+            
+            return [...new Set(charset)].join('');
+        }
+
+        function* generateCombinations(charset, length) {
+            const total = Math.pow(charset.length, length);
+            
+            for (let i = 0; i < total; i++) {
+                let combination = '';
+                let temp = i;
+                
+                for (let j = 0; j < length; j++) {
+                    combination = charset[temp % charset.length] + combination;
+                    temp = Math.floor(temp / charset.length);
+                }
+                
+                yield combination;
+            }
+        }
+
+        async function startHashCracking() {
+            const targetHash = document.getElementById('crack-target-hash').value.toLowerCase().trim();
+            const minLength = parseInt(document.getElementById('crack-min-length').value);
+            const maxLength = parseInt(document.getElementById('crack-max-length').value);
+            
+            if (!targetHash) {
+                showResult('crack-result', getErrorMessage('no-input'), true);
+                return;
+            }
+            
+            if (!/^[a-f0-9]{64}$/i.test(targetHash)) {
+                showResult('crack-result', currentLang === 'en' ? 'Invalid SHA256 hash format. Must be 64 hexadecimal characters.' : 'Geçersiz SHA256 hash formatı. 64 onaltılık karakter olmalıdır.', true);
+                return;
+            }
+            
+            if (minLength > maxLength) {
+                showResult('crack-result', currentLang === 'en' ? 'Minimum length cannot be greater than maximum length.' : 'Minimum uzunluk maksimum uzunluktan büyük olamaz.', true);
+                return;
+            }
+            
+            const charset = generateCharacterSet();
+            if (!charset) {
+                showResult('crack-result', currentLang === 'en' ? 'Please select at least one character set.' : 'Lütfen en az bir karakter seti seçin.', true);
+                return;
+            }
+            
+            crackingInProgress = true;
+            document.getElementById('crack-start-btn').style.display = 'none';
+            document.getElementById('crack-stop-btn').style.display = 'inline-block';
+            document.getElementById('crack-progress').style.display = 'block';
+            document.getElementById('crack-result').innerHTML = '';
+            
+            let totalCombinations = 0;
+            for (let len = minLength; len <= maxLength; len++) {
+                totalCombinations += Math.pow(charset.length, len);
+            }
+            
+            let currentCombination = 0;
+            const startTime = Date.now();
+            
+            console.log('Testing hash function...');
+            const testHash = await hashString('test');
+            console.log('Hash of "test":', testHash);
+            console.log('Target hash:', targetHash);
+            
+            try {
+                const commonPasswords = ['123', 'abc', 'test', 'admin', 'pass', 'password', '1234', 'abcd', '12345'];
+                for (let commonPass of commonPasswords) {
+                    if (!crackingInProgress) break;
+                    
+                    currentCombination++;
+                    const hash = await hashString(commonPass);
+                    
+                    if (hash === targetHash) {
+                        const elapsed = Date.now() - startTime;
+                        showResult('crack-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Hash Cracked!' : 'Hash Kırıldı!'}</strong><br>
+                            ${currentLang === 'en' ? 'Original String:' : 'Orijinal Metin:'} <strong>${commonPass}</strong><br>
+                            ${currentLang === 'en' ? 'Found in common passwords' : 'Yaygın şifreler arasında bulundu'}<br>
+                            ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s`);
+                        stopHashCracking();
+                        return;
+                    }
+                }
+                
+                for (let length = minLength; length <= maxLength && crackingInProgress; length++) {
+                    const combinations = generateAllCombinations(charset, length);
+                    
+                    for (let combination of combinations) {
+                        if (!crackingInProgress) break;
+                        
+                        currentCombination++;
+                        
+                        const hash = await hashString(combination);
+                        
+                        if (currentCombination % 500 === 0) {
+                            const progress = Math.min((currentCombination / totalCombinations) * 100, 100);
+                            const elapsed = Date.now() - startTime;
+                            const rate = currentCombination / (elapsed / 1000);
+                            
+                            document.getElementById('crack-progress-bar').style.width = progress + '%';
+                            document.getElementById('crack-status').textContent = currentLang === 'en' ? 
+                                `Trying: ${combination} | Progress: ${progress.toFixed(2)}% | Rate: ${Math.round(rate)}/s | Elapsed: ${Math.round(elapsed/1000)}s` :
+                                `Deneniyor: ${combination} | İlerleme: %${progress.toFixed(2)} | Hız: ${Math.round(rate)}/s | Geçen: ${Math.round(elapsed/1000)}s`;
+                            
+                            await new Promise(resolve => setTimeout(resolve, 1));
+                        }
+                        
+                        if (hash === targetHash) {
+                            const elapsed = Date.now() - startTime;
+                            showResult('crack-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Hash Cracked!' : 'Hash Kırıldı!'}</strong><br>
+                                ${currentLang === 'en' ? 'Original String:' : 'Orijinal Metin:'} <strong>${combination}</strong><br>
+                                ${currentLang === 'en' ? 'Attempts:' : 'Deneme Sayısı:'} ${currentCombination.toLocaleString()}<br>
+                                ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s`);
+                            stopHashCracking();
+                            return;
+                        }
+                    }
+                }
+                
+                if (crackingInProgress) {
+                    const elapsed = Date.now() - startTime;
+                    showResult('crack-result', `<strong><i class="fas fa-times-circle"></i> ${currentLang === 'en' ? 'Hash Not Found' : 'Hash Bulunamadı'}</strong><br>
+                        ${currentLang === 'en' ? 'Tried all combinations up to length' : 'Uzunluğa kadar tüm kombinasyonlar denendi'} ${maxLength}<br>
+                        ${currentLang === 'en' ? 'Total Attempts:' : 'Toplam Deneme:'} ${currentCombination.toLocaleString()}<br>
+                        ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s<br>
+                        ${currentLang === 'en' ? 'Try a simpler hash or increase max length' : 'Daha basit bir hash deneyin veya max uzunluğu artırın'}`, true);
+                }
+                
+            } catch (error) {
+                console.error('Hash cracking error:', error);
+                showResult('crack-result', getErrorMessage('hash-error'), true);
+            } finally {
+                stopHashCracking();
+            }
+        }
+
+        function generateAllCombinations(charset, length) {
+            const results = [];
+            
+            
+            function backtrack(current, remaining) {
+                if (remaining === 0) {
+                    results.push(current);
+                    return;
+                }
+                
+                for (let i = 0; i < charset.length; i++) {
+                    backtrack(current + charset[i], remaining - 1);
+                }
+            }
+            
+            backtrack('', length);
+            return results;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('aes-encrypt-padding').addEventListener('change', () => updatePaddingInfo('encrypt'));
+            document.getElementById('aes-decrypt-padding').addEventListener('change', () => updatePaddingInfo('decrypt'));
+            showHashTab('calculator');
+        });
+        
+        function stopHashCracking() {
+            crackingInProgress = false;
+            document.getElementById('crack-start-btn').style.display = 'inline-block';
+            document.getElementById('crack-stop-btn').style.display = 'none';
+            document.getElementById('crack-progress').style.display = 'none';
+        }
+
+        function generateKey(inputId, keySizeSelectId) {
+            const keySize = keySizeSelectId ? document.getElementById(keySizeSelectId).value : '256';
+            const keyLength = Math.ceil(parseInt(keySize) / 8); // Convert bits to approximate character length
+            
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+            let key = '';
+            
+            for (let i = 0; i < keyLength; i++) {
+                key += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            
+            const inputElement = document.getElementById(inputId);
+            inputElement.value = key;
+            
+            showKeyGeneratedNotification(key, keySize);
+        }
+
+        function showKeyGeneratedNotification(generatedKey, keySize) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #27ae60, #229954);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+                z-index: 10000;
+                font-weight: 600;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+                max-width: 350px;
+                word-break: break-all;
+            `;
+            
+            const message = currentLang === 'en' ? 
+                `<i class="fas fa-key"></i> Generated ${keySize}-bit Key:<br><small style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 5px; border-radius: 4px; display: block; margin-top: 5px;">${generatedKey}</small><br><small>Key has been applied to the field</small>` : 
+                `<i class="fas fa-key"></i> ${keySize}-bit Anahtar Oluşturuldu:<br><small style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 5px; border-radius: 4px; display: block; margin-top: 5px;">${generatedKey}</small><br><small>Anahtar alana uygulandı</small>`;
+            
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 6000);
+        }
+
+        function generateIV(inputId, modeSelectId) {
+            const mode = modeSelectId ? document.getElementById(modeSelectId).value : 'GCM';
+            const iv = generateIVForMode(mode);
+            const ivHex = ab2hex(iv);
+            
+            const inputElement = document.getElementById(inputId);
+            inputElement.value = ivHex;
+            
+            showIVGeneratedNotification(ivHex, mode);
+        }
+
+        function showIVGeneratedNotification(generatedIV, mode) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: linear-gradient(135deg, #e67e22, #d35400);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+                z-index: 10000;
+                font-weight: 600;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+                max-width: 350px;
+                word-break: break-all;
+            `;
+            
+            const message = currentLang === 'en' ? 
+                `<i class="fas fa-random"></i> Generated IV for ${mode}:<br><small style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 5px; border-radius: 4px; display: block; margin-top: 5px;">${generatedIV}</small><br><small>IV has been applied to the field</small>` : 
+                `<i class="fas fa-random"></i> ${mode} için IV Oluşturuldu:<br><small style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 5px; border-radius: 4px; display: block; margin-top: 5px;">${generatedIV}</small><br><small>IV alana uygulandı</small>`;
+            
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 100);
+            
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 5000);
+        }
+
+        function generateIVForMode(mode) {
+            switch(mode) {
+                case 'GCM':
+                    return crypto.getRandomValues(new Uint8Array(12)); // 96 bits
+                case 'CBC':
+                case 'CTR':
+                    return crypto.getRandomValues(new Uint8Array(16)); // 128 bits
+                default:
+                    return crypto.getRandomValues(new Uint8Array(12));
+            }
+        }
+
+        async function calculateSHA256() {
+            try {
+                const textInput = document.getElementById('hash-text').value;
+                const fileInput = document.getElementById('hash-file').files[0];
+
+                let data;
+                if (fileInput) {
+                    data = await fileInput.arrayBuffer();
+                } else if (textInput) {
+                    const encoder = new TextEncoder();
+                    data = encoder.encode(textInput);
+                } else {
+                    showResult('hash-result', getErrorMessage('no-input'), true);
+                    return;
+                }
+
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashHex = ab2hex(hashBuffer);
+
+                showResult('hash-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'SHA256 Hash:' : 'SHA256 Hash Değeri:'}</strong><br>${hashHex}`);
+                
+            } catch (error) {
+                showResult('hash-result', getErrorMessage('hash-error'), true);
+            }
+        }
+
+        async function hashString(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            return ab2hex(hashBuffer);
+        }
+
+        function showHashTab(tab) {
+            if (tab === 'calculator') {
+                document.getElementById('hash-calculator-section').style.display = 'block';
+                document.getElementById('hash-cracker-section').style.display = 'none';
+                document.getElementById('hash-calc-tab').style.background = 'linear-gradient(135deg, #3498db, #2980b9)';
+                               document.getElementById('hash-crack-tab').style.background = 'linear-gradient(135deg, #95a5a6, #7f8c8d)';
+            } else {
+                document.getElementById('hash-calculator-section').style.display = 'none';
+                document.getElementById('hash-cracker-section').style.display = 'block';
+                document.getElementById('hash-calc-tab').style.background = 'linear-gradient(135deg, #95a5a6, #7f8c8d)';
+                document.getElementById('hash-crack-tab').style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+            }
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyNotification();
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopyNotification();
+                } catch (err) {
+                    console.error('Fallback copy failed: ', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        function showCopyNotification() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 140px;
+                right: 20px;
+                background: linear-gradient(135deg, #9b59b6, #8e44ad);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+                z-index: 10000;
+                font-weight: 600;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+                max-width: 300px;
+            `;
+            
+            const message = currentLang === 'en' ? 
+                `<i class="fas fa-check"></i> Encrypted data copied to clipboard!` : 
+                `<i class="fas fa-check"></i> Şifrelenmiş veri panoya kopyalandı!`;
+            
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function ab2hex(buffer) {
+            return Array.from(new Uint8Array(buffer))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        function hex2ab(hex) {
+            const bytes = new Uint8Array(hex.length / 2);
+            for (let i = 0; i < hex.length; i += 2) {
+                bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+            }
+            return bytes.buffer;
+        }
+
+        // Download file function
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
