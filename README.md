@@ -41,6 +41,10 @@ AES algoritmasının şifreleme ve çözme işlemlerinde kullanılan gizli anaht
 IV (Initialization Vector – Başlatma Vektörü):  
 CBC veya GCM gibi modlarda kullanılan başlangıç verisidir.  
 Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.  
+“IV Üret” ile otomatik oluşturulabilir.  
+
+
+
 
 
 
