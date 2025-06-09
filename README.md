@@ -7,7 +7,7 @@ Ana Sayfa,
 Bu sayfa, kullanıcıya hangi kriptografi aracını kullanmak istediğini seçme imkanı sunar.
 
 
-Araç Seçenekleri:
+Araç Seçenekleri  
 
 🔒 AES Şifreleme:  
 Gelişmiş Şifreleme Standardı (AES) ile 256-bit güvenlik sunar. Verileri şifreleyip çözme imkanı tanır.
@@ -16,6 +16,10 @@ Gelişmiş Şifreleme Standardı (AES) ile 256-bit güvenlik sunar. Verileri şi
 Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA256 hash değerleri üretir.
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/9c764860f18d3e9418ee02abe8e6d975f2c5472f/photo2.PNG)
+🔐 AES Şifreleme Sayfası  
+Bu sayfa, kullanıcının AES algoritması kullanarak metin veya dosya şifrelemesini gerçekleştirmesini sağlar.  
+
+
 
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/3a7332bd5f179666e852349fe7fc07cdfaee719d/photo3.PNG)
