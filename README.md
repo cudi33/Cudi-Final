@@ -17,7 +17,36 @@ Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)  
 🔐 AES Şifreleme Sayfası  
-Bu sayfa, kullanıcının AES algoritması kullanarak metin veya dosya şifrelemesini gerçekleştirmesini sağlar.  
+Bu sayfa, kullanıcıya AES (Advanced Encryption Standard) algoritması ile veri şifreleme ve çözme (decryption) işlemleri yapma imkanı sunar.  
+
+
+Anahtar Boyutu (Key Size):
+Şifreleme işlemlerinde kullanılan anahtarın uzunluğunu belirler. Genellikle 128, 192 veya 256 bit seçenekleri vardır.  
+ Daha uzun anahtar = Daha güçlü şifreleme (256 bit önerilir)  
+
+Şifreleme Modu (Encryption Mode):  
+AES algoritmasının nasıl çalışacağını belirleyen mod seçimidir. En yaygın modlar:  
+
+CBC (Cipher Block Chaining): Her blok bir öncekine bağlıdır. Rastgele IV gerektirir.  
+
+GCM (Galois/Counter Mode): Hem şifreleme hem de bütünlük doğrulaması sağlar. Modern ve önerilen moddur.  
+Dolgu Şeması (Padding Scheme): (yalnızca CBC gibi blok modlarında geçerlidir)
+Verinin blok boyutuna uygun hale getirilmesi için eklenen dolgu yöntemidir. En yaygını:  
+
+PKCS#7: Verinin sonuna eksik bayt sayısı kadar karakter ekle  
+Key (Anahtar):  
+AES algoritmasının şifreleme ve çözme işlemlerinde kullanılan gizli anahtardır.  
+ “Anahtar Üret” butonuyla rastgele güvenli bir key oluşturulabilir.  
+ 
+ IV (Initialization Vector – Başlatma Vektörü):  
+CBC veya GCM gibi modlarda kullanılan başlangıç verisidir.  
+Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.  
+
+
+
+
+
+
 
 
 
