@@ -5,10 +5,12 @@
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/821fd9c36980327e9ad5b2cdc55dd736a5637b33/photo1.PNG)
 Ana Sayfa,
 Bu sayfa, kullanıcıya hangi kriptografi aracını kullanmak istediğini seçme imkanı sunar.
+
+
 Araç Seçenekleri:
-🔒 AES Şifreleme
+🔒 AES Şifreleme:
 Gelişmiş Şifreleme Standardı (AES) ile 256-bit güvenlik sunar. Verileri şifreleyip çözme imkanı tanır.
-🧬 SHA256 Hash
+🧬 SHA256 Hash:
 Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA256 hash değerleri üretir.
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/9c764860f18d3e9418ee02abe8e6d975f2c5472f/photo2.PNG)
