@@ -25,20 +25,20 @@ Anahtar Boyutu (Key Size):
  Daha uzun anahtar = Daha güçlü şifreleme (256 bit önerilir)  
 
 Şifreleme Modu (Encryption Mode):  
-AES algoritmasının nasıl çalışacağını belirleyen mod seçimidir. En yaygın modlar:  
-
-CBC (Cipher Block Chaining): Her blok bir öncekine bağlıdır. Rastgele IV gerektirir.  
-
+AES algoritmasının nasıl çalışacağını belirleyen mod seçimidir.  
+En yaygın modlar:  
+CBC (Cipher Block Chaining): Her blok bir öncekine bağlıdır. Rastgele IV gerektirir.   
 GCM (Galois/Counter Mode): Hem şifreleme hem de bütünlük doğrulaması sağlar. Modern ve önerilen moddur.  
 Dolgu Şeması (Padding Scheme): (yalnızca CBC gibi blok modlarında geçerlidir)
-Verinin blok boyutuna uygun hale getirilmesi için eklenen dolgu yöntemidir. En yaygını:  
-
+Verinin blok boyutuna uygun hale getirilmesi için eklenen dolgu yöntemidir.  
+En yaygını:  
 PKCS#7: Verinin sonuna eksik bayt sayısı kadar karakter ekle  
+
 Key (Anahtar):  
 AES algoritmasının şifreleme ve çözme işlemlerinde kullanılan gizli anahtardır.  
- “Anahtar Üret” butonuyla rastgele güvenli bir key oluşturulabilir.  
+“Anahtar Üret” butonuyla rastgele güvenli bir key oluşturulabilir.  
  
- IV (Initialization Vector – Başlatma Vektörü):  
+IV (Initialization Vector – Başlatma Vektörü):  
 CBC veya GCM gibi modlarda kullanılan başlangıç verisidir.  
 Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.  
 
