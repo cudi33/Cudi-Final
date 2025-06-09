@@ -15,14 +15,14 @@ Gelişmiş Şifreleme Standardı (AES) ile 256-bit güvenlik sunar. Verileri şi
 🧬 SHA256 Hash:  
 Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA256 hash değerleri üretir.
 
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)  
 🔐 AES Şifreleme Sayfası  
 Bu sayfa, kullanıcının AES algoritması kullanarak metin veya dosya şifrelemesini gerçekleştirmesini sağlar.  
 
 
 
 
-![APP UI]()
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/8db2b39335cf77371fbdbbd2ba86cd281cde7e43/aes%20%C5%9Fifrelenmi%C5%9F%20metin%20%C3%A7%C3%B6zme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/8085bfaeb370dfc9ffc065ccb01e67c5b4b1a5e9/aes-resim-%C5%9Fifreleme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/cbaff06f85c13730e040a5ce575760a294477445/aes-%C5%9Fifrelenmi%C5%9F-resim-%C3%A7%C3%B6zme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/2bc3b8ef672a3dafb73dd614b4797d80e268c991/hash%20metin%20%C5%9Fifreleme.PNG)
