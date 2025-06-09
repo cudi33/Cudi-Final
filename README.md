@@ -7,7 +7,7 @@
 
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/3a7332bd5f179666e852349fe7fc07cdfaee719d/photo3.PNG)
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/1284634e77a55752bfea0ed7faec3b984e10cb31/photo4.PNG)
+![APP UI]()
 ![APP UI]()
 ![APP UI]()
 ![APP UI]()
