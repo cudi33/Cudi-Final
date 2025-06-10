@@ -4,7 +4,7 @@
 ------------------------------------------------------
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/821fd9c36980327e9ad5b2cdc55dd736a5637b33/photo1.PNG)  
 
-##Ana Sayfa  
+### Ana Sayfa  
 Bu sayfa, kullanıcıya hangi kriptografi aracını kullanmak istediğini seçme imkanı sunar.
 
 
@@ -18,7 +18,7 @@ Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)   
 
-🔐 AES Şifreleme Sayfası  
+🔐 ### AES Şifreleme Sayfası  
 Bu sayfa, kullanıcıya AES (Advanced Encryption Standard) algoritması ile veri şifreleme ve çözme (decryption) işlemleri yapma imkanı sunar.  
 
 
