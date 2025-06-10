@@ -4,9 +4,8 @@
 ------------------------------------------------------
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/821fd9c36980327e9ad5b2cdc55dd736a5637b33/photo1.PNG)  
 
-### Ana Sayfa  
+Ana Sayfa  
 Bu sayfa, kullanıcıya hangi kriptografi aracını kullanmak istediğini seçme imkanı sunar.
-
 
 Araç Seçenekleri  
 
@@ -18,7 +17,7 @@ Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)   
 
-🔐 ### AES Şifreleme Sayfası  
+🔐 AES Şifreleme Sayfası  
 Bu sayfa, kullanıcıya AES (Advanced Encryption Standard) algoritması ile veri şifreleme ve çözme (decryption) işlemleri yapma imkanı sunar.  
 
 
@@ -48,7 +47,7 @@ Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/8db2b39335cf77371fbdbbd2ba86cd281cde7e43/aes%20%C5%9Fifrelenmi%C5%9F%20metin%20%C3%A7%C3%B6zme.PNG)   
 
-AES Çözme (Decryption)   
+🔓 AES Çözme (Decryption)   
 Bu arayüz, daha önce AES algoritması kullanılarak şifrelenmiş verinin çözülmesi (decryption) için tasarlanmıştır. Kullanıcı, gerekli parametreleri girerek orijinal düz metne ulaşabilir.  
 Çözme Anahtarı (Decryption Key):  
 Şifrelemede kullanılan gizli anahtar buraya yazılır. AES, simetrik algoritma olduğu için aynı anahtar çözmede de kullanılır.   
