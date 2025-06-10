@@ -41,21 +41,27 @@ AES algoritmasının şifreleme ve çözme işlemlerinde kullanılan gizli anaht
 IV (Initialization Vector – Başlatma Vektörü):  
 CBC veya GCM gibi modlarda kullanılan başlangıç verisidir.  
 Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.  
-“IV Üret” ile otomatik oluşturulabilir.  
+“IV Üret” ile otomatik oluşturulabilir.   
+
+
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/8db2b39335cf77371fbdbbd2ba86cd281cde7e43/aes%20%C5%9Fifrelenmi%C5%9F%20metin%20%C3%A7%C3%B6zme.PNG)   
+
+AES Çözme (Decryption)   
+Bu arayüz, daha önce AES algoritması kullanılarak şifrelenmiş verinin çözülmesi (decryption) için tasarlanmıştır. Kullanıcı, gerekli parametreleri girerek orijinal düz metne ulaşabilir.
+Çözme Anahtarı (Decryption Key):  
+Şifrelemede kullanılan gizli anahtar buraya yazılır. AES, simetrik algoritma olduğu için aynı anahtar çözmede de kullanılır.   
+Başlatma Vektörü (IV - Initialization Vector):  
+Şifrelemede kullanılan IV burada tekrar girilmelidir.    
+Şifrelenmiş Veri (Encrypted Data):  
+AES algoritmasıyla oluşturulmuş şifreli metin bu alana yapıştırılır.  
+Download Decrypted File:  
+Çözülen veriyi dosya olarak bilgisayara indirir.    
 
 
 
 
 
 
-
-
-
-
-
-
-
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/8db2b39335cf77371fbdbbd2ba86cd281cde7e43/aes%20%C5%9Fifrelenmi%C5%9F%20metin%20%C3%A7%C3%B6zme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/8085bfaeb370dfc9ffc065ccb01e67c5b4b1a5e9/aes-resim-%C5%9Fifreleme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/cbaff06f85c13730e040a5ce575760a294477445/aes-%C5%9Fifrelenmi%C5%9F-resim-%C3%A7%C3%B6zme.PNG)
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/2bc3b8ef672a3dafb73dd614b4797d80e268c991/hash%20metin%20%C5%9Fifreleme.PNG)
