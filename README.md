@@ -2,7 +2,8 @@
  bilgi güvenliği ve kriptogafi final ödevi
  Cudi Şami 2012721308
 ------------------------------------------------------
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/821fd9c36980327e9ad5b2cdc55dd736a5637b33/photo1.PNG)
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/821fd9c36980327e9ad5b2cdc55dd736a5637b33/photo1.PNG)  
+
 Ana Sayfa,
 Bu sayfa, kullanıcıya hangi kriptografi aracını kullanmak istediğini seçme imkanı sunar.
 
@@ -15,7 +16,8 @@ Gelişmiş Şifreleme Standardı (AES) ile 256-bit güvenlik sunar. Verileri şi
 🧬 SHA256 Hash:  
 Verilerin bütünlüğünü doğrulamak ve dijital imzalar için tek yönlü SHA256 hash değerleri üretir.
 
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)  
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/df7eb828cb7ff1819d08a379fb1f7bc85a5836b3/aes%20metin%20%C5%9Fifreleme.PNG)   
+
 🔐 AES Şifreleme Sayfası  
 Bu sayfa, kullanıcıya AES (Advanced Encryption Standard) algoritması ile veri şifreleme ve çözme (decryption) işlemleri yapma imkanı sunar.  
 
@@ -90,7 +92,8 @@ Hedef SHA256 Hash:
 Tersine çözülmek istenen hash değeri girilir.  
 
 
-![APP UI](https://github.com/cudi33/Cudi-Final/blob/9c8e536d92fc7af135c478725a496283ffc12b9d/hash%20ile%20dosya%20%C5%9Fifreleme.PNG)  
+![APP UI](https://github.com/cudi33/Cudi-Final/blob/9c8e536d92fc7af135c478725a496283ffc12b9d/hash%20ile%20dosya%20%C5%9Fifreleme.PNG)   
+
 📄 SHA256 ile Dosya Hash (Özet) Hesaplama  
 Bu sayfada, SHA256 algoritması kullanılarak nasıl hash değerinin üretildiği gösterilmektedir.    
 
