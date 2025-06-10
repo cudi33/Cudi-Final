@@ -47,7 +47,7 @@ Her şifreleme işlemi için farklı IV kullanılması güvenliği artırır.
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/8db2b39335cf77371fbdbbd2ba86cd281cde7e43/aes%20%C5%9Fifrelenmi%C5%9F%20metin%20%C3%A7%C3%B6zme.PNG)   
 
 AES Çözme (Decryption)   
-Bu arayüz, daha önce AES algoritması kullanılarak şifrelenmiş verinin çözülmesi (decryption) için tasarlanmıştır. Kullanıcı, gerekli parametreleri girerek orijinal düz metne ulaşabilir.
+Bu arayüz, daha önce AES algoritması kullanılarak şifrelenmiş verinin çözülmesi (decryption) için tasarlanmıştır. Kullanıcı, gerekli parametreleri girerek orijinal düz metne ulaşabilir.  
 Çözme Anahtarı (Decryption Key):  
 Şifrelemede kullanılan gizli anahtar buraya yazılır. AES, simetrik algoritma olduğu için aynı anahtar çözmede de kullanılır.   
 Başlatma Vektörü (IV - Initialization Vector):  
