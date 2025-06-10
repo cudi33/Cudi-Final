@@ -71,6 +71,7 @@ Aynı anahtar ve IV kullanılarak şifreli dosya çözüldü.
 Orijinal .jpeg dosyası başarılı şekilde geri elde edildi.  
 Download Decrypted File ile geri indirilebilir.  
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/2bc3b8ef672a3dafb73dd614b4797d80e268c991/hash%20metin%20%C5%9Fifreleme.PNG)  
 
@@ -91,7 +92,9 @@ Tersine çözülmek istenen hash değeri girilir.
 
 ![APP UI](https://github.com/cudi33/Cudi-Final/blob/9c8e536d92fc7af135c478725a496283ffc12b9d/hash%20ile%20dosya%20%C5%9Fifreleme.PNG)  
 📄 SHA256 ile Dosya Hash (Özet) Hesaplama  
-Bu sayfada, SHA256 algoritması kullanılarak nasıl hash değerinin üretildiği gösterilmektedir.   
+Bu sayfada, SHA256 algoritması kullanılarak nasıl hash değerinin üretildiği gösterilmektedir.    
+
+
 Neden Dosya Hash Kullanılır?  
 Dosyanın değişip değişmediğini kontrol etmek (bütünlük doğrulaması)  
 Güvenli karşılaştırmalar yapmak (örneğin: dosya aynı mı?)  
