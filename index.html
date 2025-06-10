@@ -535,53 +535,7 @@
                 <div id="hash-cracker-section" style="display: none;">
                     <div class="form-group">
                         <label data-lang-en="Target SHA256 Hash:" data-lang-tr="Hedef SHA256 Hash:">Target SHA256 Hash:</label>
-                        <input type="text" id="crack-target-hash" data-lang-en="Enter SHA256 hash to crack (64 hex characters)" data-lang-tr="Kırılacak SHA256 hash girin (64 hex karakter)" placeholder="Enter SHA256 hash to crack (64 hex characters)">
-                    </div>
-
-                    <div class="form-group">
-                        <label data-lang-en="Minimum Length:" data-lang-tr="Minimum Uzunluk:">Minimum Length:</label>
-                        <select id="crack-min-length" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3" selected>3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label data-lang-en="Maximum Length:" data-lang-tr="Maximum Uzunluk:">Maximum Length:</label>
-                        <select id="crack-max-length" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5" selected>5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label data-lang-en="Character Sets:" data-lang-tr="Karakter Setleri:">Character Sets:</label>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; font-weight: normal;">
-                                <input type="checkbox" id="crack-lowercase" checked style="margin-right: 8px; width: auto;">
-                                <span data-lang-en="Lowercase (a-z)" data-lang-tr="Küçük harf (a-z)">Lowercase (a-z)</span>
-                            </label>
-                            <label style="display: flex; align-items: center; font-weight: normal;">
-                                <input type="checkbox" id="crack-uppercase" style="margin-right: 8px; width: auto;">
-                                <span data-lang-en="Uppercase (A-Z)" data-lang-tr="Büyük harf (A-Z)">Uppercase (A-Z)</span>
-                            </label>
-                            <label style="display: flex; align-items: center; font-weight: normal;">
-                                <input type="checkbox" id="crack-digits" checked style="margin-right: 8px; width: auto;">
-                                <span data-lang-en="Digits (0-9)" data-lang-tr="Rakam (0-9)">Digits (0-9)</span>
-                            </label>
-                            <label style="display: flex; align-items: center; font-weight: normal;">
-                                <input type="checkbox" id="crack-symbols" style="margin-right: 8px; width: auto;">
-                                <span data-lang-en="Symbols (!@#$...)" data-lang-tr="Sembol (!@#$...)">Symbols (!@#$...)</span>
-                            </label>
-                        </div>
+                        <input type="text" id="crack-target-hash" data-lang-en="Enter SHA256 hash to crack (64 hex characters)" data-lang-tr="Kırılacak SHA256 hash girin (64 hex karakter)" placeholder="Enter SHA256 hash to crack (64 hex karakter)" style="width: 100%;">
                     </div>
 
                     <button onclick="startHashCracking()" id="crack-start-btn">
@@ -1363,8 +1317,6 @@
 
         async function startHashCracking() {
             const targetHash = document.getElementById('crack-target-hash').value.toLowerCase().trim();
-            const minLength = parseInt(document.getElementById('crack-min-length').value);
-            const maxLength = parseInt(document.getElementById('crack-max-length').value);
             
             if (!targetHash) {
                 showResult('crack-result', getErrorMessage('no-input'), true);
@@ -1376,124 +1328,62 @@
                 return;
             }
             
-            if (minLength > maxLength) {
-                showResult('crack-result', currentLang === 'en' ? 'Minimum length cannot be greater than maximum length.' : 'Minimum uzunluk maksimum uzunluktan büyük olamaz.', true);
-                return;
-            }
-            
-            const charset = generateCharacterSet();
-            if (!charset) {
-                showResult('crack-result', currentLang === 'en' ? 'Please select at least one character set.' : 'Lütfen en az bir karakter seti seçin.', true);
-                return;
-            }
-            
             crackingInProgress = true;
             document.getElementById('crack-start-btn').style.display = 'none';
             document.getElementById('crack-stop-btn').style.display = 'inline-block';
             document.getElementById('crack-progress').style.display = 'block';
             document.getElementById('crack-result').innerHTML = '';
-            
-            let totalCombinations = 0;
-            for (let len = minLength; len <= maxLength; len++) {
-                totalCombinations += Math.pow(charset.length, len);
-            }
-            
-            let currentCombination = 0;
+
             const startTime = Date.now();
-            
-            console.log('Testing hash function...');
-            const testHash = await hashString('test');
-            console.log('Hash of "test":', testHash);
-            console.log('Target hash:', targetHash);
-            
+            let attemptCount = 0;
+
             try {
-                const commonPasswords = ['123', 'abc', 'test', 'admin', 'pass', 'password', '1234', 'abcd', '12345'];
-                for (let commonPass of commonPasswords) {
-                    if (!crackingInProgress) break;
-                    
-                    currentCombination++;
-                    const hash = await hashString(commonPass);
-                    
-                    if (hash === targetHash) {
-                        const elapsed = Date.now() - startTime;
-                        showResult('crack-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Hash Cracked!' : 'Hash Kırıldı!'}</strong><br>
-                            ${currentLang === 'en' ? 'Original String:' : 'Orijinal Metin:'} <strong>${commonPass}</strong><br>
-                            ${currentLang === 'en' ? 'Found in common passwords' : 'Yaygın şifreler arasında bulundu'}<br>
-                            ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s`);
-                        stopHashCracking();
-                        return;
-                    }
+                const textToHash = document.getElementById('hash-text').value.trim();
+                const hash = await hashString(textToHash);
+                
+                if (hash === targetHash) {
+                    const elapsed = (Date.now() - startTime) / 1000;
+                    showResult('crack-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Hash Cracked!' : 'Hash Kırıldı!'}</strong><br>
+                        ${currentLang === 'en' ? 'Original Text:' : 'Orijinal Metin:'} <strong>${textToHash}</strong><br>
+                        ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${elapsed.toFixed(3)}s`);
+                    stopHashCracking();
+                    return;
                 }
                 
-                for (let length = minLength; length <= maxLength && crackingInProgress; length++) {
-                    const combinations = generateAllCombinations(charset, length);
-                    
-                    for (let combination of combinations) {
-                        if (!crackingInProgress) break;
-                        
-                        currentCombination++;
-                        
-                        const hash = await hashString(combination);
-                        
-                        if (currentCombination % 500 === 0) {
-                            const progress = Math.min((currentCombination / totalCombinations) * 100, 100);
-                            const elapsed = Date.now() - startTime;
-                            const rate = currentCombination / (elapsed / 1000);
-                            
-                            document.getElementById('crack-progress-bar').style.width = progress + '%';
-                            document.getElementById('crack-status').textContent = currentLang === 'en' ? 
-                                `Trying: ${combination} | Progress: ${progress.toFixed(2)}% | Rate: ${Math.round(rate)}/s | Elapsed: ${Math.round(elapsed/1000)}s` :
-                                `Deneniyor: ${combination} | İlerleme: %${progress.toFixed(2)} | Hız: ${Math.round(rate)}/s | Geçen: ${Math.round(elapsed/1000)}s`;
-                            
-                            await new Promise(resolve => setTimeout(resolve, 1));
-                        }
-                        
-                        if (hash === targetHash) {
-                            const elapsed = Date.now() - startTime;
-                            showResult('crack-result', `<strong><i class="fas fa-check-circle"></i> ${currentLang === 'en' ? 'Hash Cracked!' : 'Hash Kırıldı!'}</strong><br>
-                                ${currentLang === 'en' ? 'Original String:' : 'Orijinal Metin:'} <strong>${combination}</strong><br>
-                                ${currentLang === 'en' ? 'Attempts:' : 'Deneme Sayısı:'} ${currentCombination.toLocaleString()}<br>
-                                ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s`);
-                            stopHashCracking();
-                            return;
-                        }
-                    }
-                }
-                
-                if (crackingInProgress) {
-                    const elapsed = Date.now() - startTime;
-                    showResult('crack-result', `<strong><i class="fas fa-times-circle"></i> ${currentLang === 'en' ? 'Hash Not Found' : 'Hash Bulunamadı'}</strong><br>
-                        ${currentLang === 'en' ? 'Tried all combinations up to length' : 'Uzunluğa kadar tüm kombinasyonlar denendi'} ${maxLength}<br>
-                        ${currentLang === 'en' ? 'Total Attempts:' : 'Toplam Deneme:'} ${currentCombination.toLocaleString()}<br>
-                        ${currentLang === 'en' ? 'Time Elapsed:' : 'Geçen Süre:'} ${(elapsed/1000).toFixed(2)}s<br>
-                        ${currentLang === 'en' ? 'Try a simpler hash or increase max length' : 'Daha basit bir hash deneyin veya max uzunluğu artırın'}`, true);
-                }
+                showResult('crack-result', `<strong><i class="fas fa-times-circle"></i> ${currentLang === 'en' ? 'Hash Not Matched' : 'Hash Eşleşmedi'}</strong><br>
+                    ${currentLang === 'en' ? 'The provided text does not match the hash.' : 'Girilen metin hash ile eşleşmiyor.'}`, true);
                 
             } catch (error) {
-                console.error('Hash cracking error:', error);
+                console.error('Hash error:', error);
                 showResult('crack-result', getErrorMessage('hash-error'), true);
             } finally {
                 stopHashCracking();
             }
         }
 
-        function generateAllCombinations(charset, length) {
-            const results = [];
+        function* generateCombinationsBatch(charset, length) {
+            const batchSize = 1000;
+            let batch = [];
             
-            
-            function backtrack(current, remaining) {
+            function* generateRecursive(prefix, remaining) {
                 if (remaining === 0) {
-                    results.push(current);
+                    batch.push(prefix);
+                    if (batch.length >= batchSize) {
+                        yield batch;
+                        batch = [];
+                    }
                     return;
                 }
                 
                 for (let i = 0; i < charset.length; i++) {
-                    backtrack(current + charset[i], remaining - 1);
+                    yield* generateRecursive(prefix + charset[i], remaining - 1);
                 }
             }
             
-            backtrack('', length);
-            return results;
+            yield* generateRecursive('', length);
+            if (batch.length > 0) {
+                yield batch;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1570,7 +1460,7 @@
         function generateIV(inputId, modeSelectId) {
             const mode = modeSelectId ? document.getElementById(modeSelectId).value : 'GCM';
             const iv = generateIVForMode(mode);
-            const ivHex = ab2hex(iv);
+                       const ivHex = ab2hex(iv);
             
             const inputElement = document.getElementById(inputId);
             inputElement.value = ivHex;
@@ -1679,13 +1569,13 @@
             }
         }
 
-        // Copy to clipboard function
+        
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(function() {
                 showCopyNotification();
             }).catch(function(err) {
                 console.error('Could not copy text: ', err);
-                // Fallback for older browsers
+                
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 document.body.appendChild(textArea);
